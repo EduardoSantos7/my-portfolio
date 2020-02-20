@@ -7,3 +7,14 @@
 #greeting-container {
   margin-top: 20px;
 }
+
+.imgContainer {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 30px; 
+}
+
+#imgContainer{
+    text-align:center;
+}
