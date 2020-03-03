@@ -15,6 +15,11 @@
 package com.google.sps.servlets;
 
 import com.google.gson.Gson;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Entity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,9 +41,16 @@ public class DataServlet extends HttpServlet {
   @Override
   public void init() {
     comments = new ArrayList<>();
-    comments.add("A ship in port is safe, but that's not what ships are built for. - Grace Hopper");
-    comments.add("It is much easier to apologise than it is to get permission. - Grace Hopper");
-    comments.add("If you can't give me poetry, can't you give me poetical science? - Ada Lovelace");
+
+    Query query = new Query("Comments");
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    for (Entity entity : results.asIterable()) {
+      String comment = (String) entity.getProperty("comment");
+      comments.add(comment);
+    }
   }
 
   @Override
@@ -51,5 +63,35 @@ public class DataServlet extends HttpServlet {
     Gson gson = new Gson();
     String json = gson.toJson(comments);
     return json;
+  }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    // Get the input from the form.
+    String text = getParameter(request, "comment", "");
+
+    Entity commentEntity = new Entity("Comments");
+    commentEntity.setProperty("comment", text);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(commentEntity);
+
+    comments.add(text);
+
+    // Redirect back to the HTML page.
+    response.sendRedirect("/index.html");
+  }
+
+  /**
+   * @return the request parameter, or the default value if the parameter was not
+   *         specified by the client
+   */
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
   }
 }
