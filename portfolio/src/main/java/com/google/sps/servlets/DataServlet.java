@@ -36,12 +36,6 @@ public class DataServlet extends HttpServlet {
   @Override
   public void init() {
     comments = new ArrayList<>();
-    // comments.add("A ship in port is safe, but that's not what ships are built
-    // for. - Grace Hopper");
-    // comments.add("It is much easier to apologise than it is to get permission. -
-    // Grace Hopper");
-    // comments.add("If you can't give me poetry, can't you give me poetical
-    // science? - Ada Lovelace");
   }
 
   @Override
