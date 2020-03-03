@@ -48,6 +48,7 @@ public class DataServlet extends HttpServlet {
     Gson gson = new Gson();
     String json = gson.toJson(comments);
     return json;
+
   }
 
   @Override
