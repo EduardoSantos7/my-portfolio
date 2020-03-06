@@ -45,3 +45,116 @@ function createListElement(text) {
   liElement.innerText = text;
   return liElement;
 }
+
+var map;
+function initMap() {
+  mexico_city_coordinates = { lat: 34.090698, lng: -118.3860029 }
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: mexico_city_coordinates,
+    zoom: 12,
+    styles: [
+      { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },
+      { elementType: 'labels.text.stroke', stylers: [{ color: '#242f3e' }] },
+      { elementType: 'labels.text.fill', stylers: [{ color: '#746855' }] },
+      {
+        featureType: 'administrative.locality',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#d59563' }]
+      },
+      {
+        featureType: 'poi',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#d59563' }]
+      },
+      {
+        featureType: 'poi.park',
+        elementType: 'geometry',
+        stylers: [{ color: '#263c3f' }]
+      },
+      {
+        featureType: 'poi.park',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#6b9a76' }]
+      },
+      {
+        featureType: 'road',
+        elementType: 'geometry',
+        stylers: [{ color: '#38414e' }]
+      },
+      {
+        featureType: 'road',
+        elementType: 'geometry.stroke',
+        stylers: [{ color: '#212a37' }]
+      },
+      {
+        featureType: 'road',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#9ca5b3' }]
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'geometry',
+        stylers: [{ color: '#746855' }]
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'geometry.stroke',
+        stylers: [{ color: '#1f2835' }]
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#f3d19c' }]
+      },
+      {
+        featureType: 'transit',
+        elementType: 'geometry',
+        stylers: [{ color: '#2f3948' }]
+      },
+      {
+        featureType: 'transit.station',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#d59563' }]
+      },
+      {
+        featureType: 'water',
+        elementType: 'geometry',
+        stylers: [{ color: '#17263c' }]
+      },
+      {
+        featureType: 'water',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#515c6d' }]
+      },
+      {
+        featureType: 'water',
+        elementType: 'labels.text.stroke',
+        stylers: [{ color: '#17263c' }]
+      }
+    ]
+  });
+}
+
+// Adds a marker using an immage index to know what image annd where put the marker
+var images = [
+  { 'url': '/images/yo.jpg', 'coor': { lat: 34.090698, lng: -118.3860029 }},
+  { 'url': '/images/yo2.jpg', 'coor': { lat: 33.383293, lng: -118.433304 } },
+]
+function addMarker(imageIndex){
+  var image = {
+    url: images[imageIndex]['url'],
+    size: new google.maps.Size(80, 80),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(25, 40),
+    scaledSize: new google.maps.Size(30, 30)
+  };
+  var marker = new google.maps.Marker({
+    position: images[imageIndex]['coor'],
+    map: map,
+    animation: google.maps.Animation.DROP,
+    icon: image
+  });
+
+  // Center the map in the new location selected 
+  map.setCenter(images[imageIndex]['coor'])
+}
