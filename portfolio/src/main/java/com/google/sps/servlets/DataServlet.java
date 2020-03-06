@@ -17,6 +17,10 @@ package com.google.sps.servlets;
 import com.google.gson.Gson;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
+
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+
 import com.google.appengine.api.datastore.Entity;
 
 import java.io.IOException;
@@ -37,6 +41,16 @@ public class DataServlet extends HttpServlet {
   @Override
   public void init() {
     comments = new ArrayList<>();
+
+    Query query = new Query("Comments");
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    for (Entity entity : results.asIterable()) {
+      String comment = (String) entity.getProperty("comment");
+      comments.add(comment);
+    }
   }
 
   @Override
@@ -77,7 +91,7 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
+
     // Get the input from the form.
     String text = getParameter(request, "comment", "");
 
@@ -94,8 +108,9 @@ public class DataServlet extends HttpServlet {
   }
 
   /**
-   * @return the request parameter, or the default value if the parameter
-   *         was not specified by the client
+   * @return the request parameter, or the default value if the parameter was not
+   *         specified by the client
+
    */
   private String getParameter(HttpServletRequest request, String name, String defaultValue) {
     String value = request.getParameter(name);
