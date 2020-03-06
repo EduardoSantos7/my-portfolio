@@ -36,7 +36,7 @@ public class DataServlet extends HttpServlet {
   
   @Override
   public void init() {
-    comments = new ArrayList
+    comments = new ArrayList<>();
   }
 
   @Override
