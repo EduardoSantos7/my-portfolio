@@ -17,8 +17,10 @@ package com.google.sps.servlets;
 import com.google.gson.Gson;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
+
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+
 import com.google.appengine.api.datastore.Entity;
 
 import java.io.IOException;
@@ -29,15 +31,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet that returns some example content. TODO: modify this file to handle
- * comments data
- */
+
+/** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
   private List<String> comments;
-
+  
   @Override
   public void init() {
     comments = new ArrayList<>();
@@ -110,6 +110,7 @@ public class DataServlet extends HttpServlet {
   /**
    * @return the request parameter, or the default value if the parameter was not
    *         specified by the client
+
    */
   private String getParameter(HttpServletRequest request, String name, String defaultValue) {
     String value = request.getParameter(name);
