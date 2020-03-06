@@ -48,8 +48,9 @@ function createListElement(text) {
 
 var map;
 function initMap() {
+  mexico_city_coordinates = { lat: 19.432608, lng: -99.133209 }
   map = new google.maps.Map(document.getElementById('map'), {
-    center: { lat: 19.432608, lng: -99.133209 },
+    center: mexico_city_coordinates,
     zoom: 12,
     styles: [
       { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },
@@ -132,4 +133,5 @@ function initMap() {
       }
     ]
   });
+  var marker = new google.maps.Marker({ position: mexico_city_coordinates, map: map });
 }
