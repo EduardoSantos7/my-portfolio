@@ -48,7 +48,7 @@ function createListElement(text) {
 
 var map;
 function initMap() {
-  mexico_city_coordinates = { lat: 19.432608, lng: -99.133209 }
+  mexico_city_coordinates = { lat: 34.090698, lng: -118.3860029 }
   map = new google.maps.Map(document.getElementById('map'), {
     center: mexico_city_coordinates,
     zoom: 12,
@@ -133,5 +133,28 @@ function initMap() {
       }
     ]
   });
-  var marker = new google.maps.Marker({ position: mexico_city_coordinates, map: map });
+}
+
+// Adds a marker using an immage index to know what image annd where put the marker
+var images = [
+  { 'url': '/images/yo.jpg', 'coor': { lat: 34.090698, lng: -118.3860029 }},
+  { 'url': '/images/yo2.jpg', 'coor': { lat: 33.383293, lng: -118.433304 } },
+]
+function addMarker(imageIndex){
+  var image = {
+    url: images[imageIndex]['url'],
+    size: new google.maps.Size(80, 80),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(25, 40),
+    scaledSize: new google.maps.Size(30, 30)
+  };
+  var marker = new google.maps.Marker({
+    position: images[imageIndex]['coor'],
+    map: map,
+    animation: google.maps.Animation.DROP,
+    icon: image
+  });
+
+  // Center the map in the new location selected 
+  map.setCenter(images[imageIndex]['coor'])
 }
