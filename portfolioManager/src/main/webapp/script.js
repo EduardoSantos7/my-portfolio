@@ -12,149 +12,102 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds a random greeting to the page.
- */
-function addRandomGreeting() {
-  const greetings =
-    ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
 
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+google.charts.load('current', { 'packages': ['corechart', 'line'] });
+google.charts.setOnLoadCallback(drawChart);
+google.charts.setOnLoadCallback(drawBackgroundColor);
 
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
-}
+/** Creates a chart and adds it to the page. */
+function drawChart() {
+  const data = new google.visualization.DataTable();
+  data.addColumn('string', 'Animal');
+  data.addColumn('number', 'Count');
+  data.addRows([
+    ['Lions', 10],
+    ['Tigers', 5],
+    ['Bears', 15]
+  ]);
 
-function getMessageUsingArrowFunctions() {
-  fetch('/data')
-    .then(response => response.text())
-    .then((message) => {
-      messages = JSON.parse(message)
-      container = document.getElementById('message-container')
-      messages.forEach(message => {
-        container.appendChild(createListElement(message))
-      });
-    });
-}
-
-/** Creates an <li> element containing text. */
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
-}
-
-var map;
-function initMap() {
-  mexico_city_coordinates = { lat: 34.090698, lng: -118.3860029 }
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: mexico_city_coordinates,
-    zoom: 12,
-    styles: [
-      { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },
-      { elementType: 'labels.text.stroke', stylers: [{ color: '#242f3e' }] },
-      { elementType: 'labels.text.fill', stylers: [{ color: '#746855' }] },
-      {
-        featureType: 'administrative.locality',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#d59563' }]
-      },
-      {
-        featureType: 'poi',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#d59563' }]
-      },
-      {
-        featureType: 'poi.park',
-        elementType: 'geometry',
-        stylers: [{ color: '#263c3f' }]
-      },
-      {
-        featureType: 'poi.park',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#6b9a76' }]
-      },
-      {
-        featureType: 'road',
-        elementType: 'geometry',
-        stylers: [{ color: '#38414e' }]
-      },
-      {
-        featureType: 'road',
-        elementType: 'geometry.stroke',
-        stylers: [{ color: '#212a37' }]
-      },
-      {
-        featureType: 'road',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#9ca5b3' }]
-      },
-      {
-        featureType: 'road.highway',
-        elementType: 'geometry',
-        stylers: [{ color: '#746855' }]
-      },
-      {
-        featureType: 'road.highway',
-        elementType: 'geometry.stroke',
-        stylers: [{ color: '#1f2835' }]
-      },
-      {
-        featureType: 'road.highway',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#f3d19c' }]
-      },
-      {
-        featureType: 'transit',
-        elementType: 'geometry',
-        stylers: [{ color: '#2f3948' }]
-      },
-      {
-        featureType: 'transit.station',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#d59563' }]
-      },
-      {
-        featureType: 'water',
-        elementType: 'geometry',
-        stylers: [{ color: '#17263c' }]
-      },
-      {
-        featureType: 'water',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#515c6d' }]
-      },
-      {
-        featureType: 'water',
-        elementType: 'labels.text.stroke',
-        stylers: [{ color: '#17263c' }]
-      }
-    ]
-  });
-}
-
-// Adds a marker using an immage index to know what image annd where put the marker
-var images = [
-  { 'url': '/images/yo.jpg', 'coor': { lat: 34.090698, lng: -118.3860029 }},
-  { 'url': '/images/yo2.jpg', 'coor': { lat: 33.383293, lng: -118.433304 } },
-]
-function addMarker(imageIndex){
-  var image = {
-    url: images[imageIndex]['url'],
-    size: new google.maps.Size(80, 80),
-    origin: new google.maps.Point(0, 0),
-    anchor: new google.maps.Point(25, 40),
-    scaledSize: new google.maps.Size(30, 30)
+  const options = {
+    'title': 'Zoo Animals',
+    'width': 500,
+    'height': 400
   };
-  var marker = new google.maps.Marker({
-    position: images[imageIndex]['coor'],
-    map: map,
-    animation: google.maps.Animation.DROP,
-    icon: image
-  });
 
-  // Center the map in the new location selected 
-  map.setCenter(images[imageIndex]['coor'])
+  const chart = new google.visualization.PieChart(
+    document.getElementById('chart-container'));
+  chart.draw(data, options);
+}
+
+function drawBackgroundColor() {
+  var data = new google.visualization.DataTable();
+  data.addColumn('number', 'X');
+  data.addColumn('number', 'Portfolio');
+
+  data.addRows([
+    [0, 0], [1, 10], [2, 23], [3, 17], [4, 18], [5, 9],
+    [6, 11], [7, 27], [8, 33], [9, 40], [10, 32], [11, 35],
+    [12, 30], [13, 40], [14, 42], [15, 47], [16, 44], [17, 48],
+    [18, 52], [19, 54], [20, 42], [21, 55], [22, 56], [23, 57],
+    [24, 60], [25, 50], [26, 52], [27, 51], [28, 49], [29, 53],
+    [30, 55], [31, 60], [32, 61], [33, 59], [34, 62], [35, 65],
+    [36, 62], [37, 58], [38, 55], [39, 61], [40, 64], [41, 65],
+    [42, 63], [43, 66], [44, 67], [45, 69], [46, 69], [47, 70],
+    [48, 72], [49, 68], [50, 66], [51, 65], [52, 67], [53, 70],
+    [54, 71], [55, 72], [56, 73], [57, 75], [58, 70], [59, 68],
+    [60, 64], [61, 60], [62, 65], [63, 67], [64, 68], [65, 69],
+    [66, 70], [67, 72], [68, 75], [69, 80]
+  ]);
+
+  var options = {
+    width: 440,
+    height: 380,
+    hAxis: {
+      title: 'Time',
+    },
+    vAxis: {
+      title: 'Value of Portfolio'
+    },
+    backgroundColor: 'white'
+  };
+
+  var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+  chart.draw(data, options);
+}
+
+function addNews(){
+  news = [
+    {title: 'Hola', img: '#', datta: "let's see"},
+    { title: 'Hola', img: '#', datta: "let's see" },
+  ]
+
+  news.forEach(elem => {
+    let card = createCard(elem.title, elem.img, elem.data)
+    div = document.getElementById("news_div")
+    div.appendChild(card)
+  });
+}
+
+function createCard(title, img, data) {
+  console.log(title + img + data)
+  card = document.createElement('div')
+  card.className = "card"
+  img = document.createElement('img')
+  img.className = "card-img-top"
+  img.src = img
+  cardBody = document.createElement('div')
+  cardBody.className = "card-body"
+  cardTitle = document.createElement('h5')
+  cardTitle.className = "card-title"
+  cardTitle.innerHTML = title
+  cardText = document.createElement('div')
+  cardText.className = "card-text"
+  cardText.innerHTML = data
+
+  card.appendChild(img)
+  cardBody.appendChild(cardTitle)
+  cardBody.appendChild(cardText)
+  card.appendChild(cardBody)
+
+  return card
 }
