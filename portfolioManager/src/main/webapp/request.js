@@ -1,8 +1,8 @@
-function httpGet() {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", '/sentiment', false); // false for synchronous request
-    xmlHttp.send(null);
-    return xmlHttp.responseText;
-}
+const Http = new XMLHttpRequest();
+const url = '/sentiment';
+Http.open("GET", url);
+Http.send();
 
-console.log(httpGet() )
+Http.onreadystatechange = (e) => {
+    console.log(Http.responseText)
+}
