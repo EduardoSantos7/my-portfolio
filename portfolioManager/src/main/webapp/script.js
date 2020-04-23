@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 google.charts.load('current', { 'packages': ['corechart', 'line'] });
 google.charts.setOnLoadCallback(drawChart);
 google.charts.setOnLoadCallback(drawBackgroundColor);
@@ -76,10 +75,10 @@ function drawBackgroundColor() {
 }
 
 function addNews(){
-  news = [
-    {title: 'Hola', img: '#', datta: "let's see"},
-    { title: 'Hola', img: '#', datta: "let's see" },
-  ]
+  // news = [
+  //   {title: 'Hola', img: '#', data: "let's see"},
+  //   { title: 'Hola', img: '#', data: "let's see" },
+  // ]
 
   news.forEach(elem => {
     let card = createCard(elem.title, elem.img, elem.data)
@@ -89,12 +88,12 @@ function addNews(){
 }
 
 function createCard(title, img, data) {
-  console.log(title + img + data)
+  im = img
   card = document.createElement('div')
   card.className = "card"
   img = document.createElement('img')
   img.className = "card-img-top"
-  img.src = img
+  img.src = im
   cardBody = document.createElement('div')
   cardBody.className = "card-body"
   cardTitle = document.createElement('h5')
