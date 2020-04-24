@@ -74,6 +74,8 @@ function drawBackgroundColor() {
   chart.draw(data, options);
 }
 
+news = []
+
 function addNews() {
   // news = [
   //   {title: 'Hola', img: '#', data: "let's see"},
@@ -94,14 +96,26 @@ function addNews() {
 }
 
 function getCompaniesNews() {
-  companies = ['AAPL', 'GOOGL']
+  companies = ['AAPL', 'MSFT']
 
   companies.forEach(company => {
     let params = {
       api_key: 'OmY4Y2VjYjFhMTg1ZWEzMWMwMDRlZGYzYzc1ZDdiMDRm'
     }
     url = 'https://api-v2.intrinio.com/companies/' + company + '/news'
-    getNews(url + formatParams(params)).then(news => console.log(news))
+    getNews(url + formatParams(params)).then(news_list => {
+      news_list = news_list.slice(0, 3)
+      news_list.forEach(n => {
+        new_obj = {
+          title: n.title,
+          publication_date: n.publication_date,
+          url: n.url,
+          data: n.summary,
+          img: ''
+        }
+        news.push(new_obj)
+      })
+    })
   })
 }
 
