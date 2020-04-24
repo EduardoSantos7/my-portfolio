@@ -114,10 +114,12 @@ function getCompaniesNews() {
         }
         news.push(new_obj)
       })
+      return news
+    }).then(news => {
+      console.log(news)
+      addNews(news)
     })
   })
-  console.log(news)
-  addNews(news)
 }
 
 function createCard(title, img, data, sentiment) {
