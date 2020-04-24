@@ -52,7 +52,7 @@ var getNews = function (url, method) {
             // Process the response
             if (request.status >= 200 && request.status < 300) {
                 // If successful
-                resolve(request.responseText);
+                resolve(request.response);
             } else {
                 // If failed
                 reject({
