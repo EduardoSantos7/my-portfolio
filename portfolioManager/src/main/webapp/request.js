@@ -5,6 +5,7 @@ async function getSentiment(message) {
     Http.send();
     
     Http.onreadystatechange = (e) => {
-        console.log(Http.responseText)
+        return Http.responseText
     }
+
 }
