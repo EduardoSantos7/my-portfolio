@@ -81,7 +81,10 @@ function addNews() {
   // ]
 
   news.forEach(elem => {
-    getSentiment("/sentiment").then(sentiment => {
+    let params = {
+      message: elem.data
+    }
+    getSentiment("/sentiment" + formatParams(params)).then(sentiment => {
       console.log("card" + sentiment)
       let card = createCard(elem.title, elem.img, elem.data, sentiment)
       div = document.getElementById("news_div")
@@ -122,4 +125,13 @@ function createCard(title, img, data, sentiment) {
   card.appendChild(cardBody)
 
   return card
+}
+
+function formatParams(params) {
+  return "?" + Object
+    .keys(params)
+    .map(function (key) {
+      return key + "=" + encodeURIComponent(params[key])
+    })
+    .join("&")
 }
