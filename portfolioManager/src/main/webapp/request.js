@@ -39,6 +39,7 @@ var getNews = function (url, method) {
 
     // Create the XHR request
     var request = new XMLHttpRequest();
+    request.responseType = 'json';
 
     // Return it as a Promise
     return new Promise(function (resolve, reject) {
@@ -52,7 +53,7 @@ var getNews = function (url, method) {
             // Process the response
             if (request.status >= 200 && request.status < 300) {
                 // If successful
-                resolve(request.response);
+                resolve(request.response.);
             } else {
                 // If failed
                 reject({

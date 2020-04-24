@@ -104,8 +104,8 @@ function getCompaniesNews() {
     }
     url = 'https://api-v2.intrinio.com/companies/' + company + '/news'
     getNews(url + formatParams(params)).then(news_list => {
-      console.log(news_list.slice(0, 3))
-      news_list = news_list.slice(0, 3)
+      console.log(news_list.news)
+      news_list = news_list.news.slice(0, 3)
       news_list.forEach(n => {
         new_obj = {
           title: n.title,
