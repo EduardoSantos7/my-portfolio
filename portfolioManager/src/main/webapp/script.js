@@ -93,6 +93,18 @@ function addNews() {
   });
 }
 
+function getCompaniesNews() {
+  companies = ['AAPL', 'GOOGL']
+
+  companies.forEach(company => {
+    let params = {
+      api_key: 'OmY4Y2VjYjFhMTg1ZWEzMWMwMDRlZGYzYzc1ZDdiMDRm'
+    }
+    url = 'https://api-v2.intrinio.com/companies/' + company + '/news'
+    getNews(url + formatParams(params)).then(news => console.log(news))
+  })
+}
+
 function createCard(title, img, data, sentiment) {
   im = img
   card = document.createElement('div')
