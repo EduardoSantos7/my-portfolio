@@ -118,6 +118,7 @@ function getCompaniesNews() {
       })
     })
   })
+  addNews()
 }
 
 function createCard(title, img, data, sentiment) {
