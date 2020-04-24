@@ -74,18 +74,19 @@ function drawBackgroundColor() {
   chart.draw(data, options);
 }
 
-function addNews(){
+function addNews() {
   // news = [
   //   {title: 'Hola', img: '#', data: "let's see"},
   //   { title: 'Hola', img: '#', data: "let's see" },
   // ]
 
   news.forEach(elem => {
-    getSentiment("").then((sentiment => {
+    getSentiment("/sentiment").then(sentiment => {
+      console.log("card" + sentiment)
       let card = createCard(elem.title, elem.img, elem.data, sentiment)
       div = document.getElementById("news_div")
       div.appendChild(card)
-    }))
+    })
   });
 }
 
@@ -106,10 +107,10 @@ function createCard(title, img, data, sentiment) {
   cardText.innerHTML = data
   badge = document.createElement('span')
 
-  if (sentiment > 0){
+  if (sentiment > 0) {
     badge.className = "badge badge-success"
   }
-  else{
+  else {
     badge.className = "badge badge-danger"
   }
   badge.innerHTML = sentiment
