@@ -74,9 +74,7 @@ function drawBackgroundColor() {
   chart.draw(data, options);
 }
 
-news = []
-
-function addNews() {
+function addNews(news) {
   // news = [
   //   {title: 'Hola', img: '#', data: "let's see"},
   //   { title: 'Hola', img: '#', data: "let's see" },
@@ -97,6 +95,7 @@ function addNews() {
 
 function getCompaniesNews() {
   companies = ['AAPL', 'MSFT']
+  news = []
 
   companies.forEach(company => {
     let params = {
@@ -118,7 +117,7 @@ function getCompaniesNews() {
     })
   })
   console.log(news)
-  addNews()
+  addNews(news)
 }
 
 function createCard(title, img, data, sentiment) {
