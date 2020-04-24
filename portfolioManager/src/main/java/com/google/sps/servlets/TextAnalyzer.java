@@ -34,7 +34,7 @@ public class TextAnalyzer extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // String message = request.getParameter("message");
-    String message = "Wall Street gained on Thursday as jobless claims declined for the third straight week, raising hopes the worst of the coronavirus pandemic's impact on the labor market might be over, but a crash in business activity dulled sentiment.";
+    String message = request.getParameter("message");
 
     Document doc = Document.newBuilder().setContent(message).setType(Document.Type.PLAIN_TEXT).build();
     LanguageServiceClient languageService = LanguageServiceClient.create();

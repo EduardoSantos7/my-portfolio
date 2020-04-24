@@ -74,20 +74,26 @@ function drawBackgroundColor() {
   chart.draw(data, options);
 }
 
-function addNews(){
+function addNews() {
   // news = [
   //   {title: 'Hola', img: '#', data: "let's see"},
   //   { title: 'Hola', img: '#', data: "let's see" },
   // ]
 
   news.forEach(elem => {
-    let card = createCard(elem.title, elem.img, elem.data)
-    div = document.getElementById("news_div")
-    div.appendChild(card)
+    let params = {
+      message: elem.data
+    }
+    getSentiment("/sentiment" + formatParams(params)).then(sentiment => {
+      console.log("card" + sentiment)
+      let card = createCard(elem.title, elem.img, elem.data, sentiment)
+      div = document.getElementById("news_div")
+      div.appendChild(card)
+    })
   });
 }
 
-function createCard(title, img, data) {
+function createCard(title, img, data, sentiment) {
   im = img
   card = document.createElement('div')
   card.className = "card"
@@ -102,11 +108,30 @@ function createCard(title, img, data) {
   cardText = document.createElement('div')
   cardText.className = "card-text"
   cardText.innerHTML = data
+  badge = document.createElement('span')
+
+  if (sentiment > 0) {
+    badge.className = "badge badge-success"
+  }
+  else {
+    badge.className = "badge badge-danger"
+  }
+  badge.innerHTML = sentiment
 
   card.appendChild(img)
   cardBody.appendChild(cardTitle)
   cardBody.appendChild(cardText)
+  cardBody.appendChild(badge)
   card.appendChild(cardBody)
 
   return card
+}
+
+function formatParams(params) {
+  return "?" + Object
+    .keys(params)
+    .map(function (key) {
+      return key + "=" + encodeURIComponent(params[key])
+    })
+    .join("&")
 }
