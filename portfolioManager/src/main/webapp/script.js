@@ -81,13 +81,13 @@ function addNews(){
   // ]
 
   news.forEach(elem => {
-    let card = createCard(elem.title, elem.img, elem.data)
+    let card = createCard(elem.title, elem.img, elem.data, getSentiment(""))
     div = document.getElementById("news_div")
     div.appendChild(card)
   });
 }
 
-function createCard(title, img, data) {
+function createCard(title, img, data, sentiment) {
   im = img
   card = document.createElement('div')
   card.className = "card"
@@ -102,10 +102,19 @@ function createCard(title, img, data) {
   cardText = document.createElement('div')
   cardText.className = "card-text"
   cardText.innerHTML = data
+  badge = document.createElement('span')
+
+  if (sentiment > 0){
+    badge.className = "badge badge-success"
+  }
+  else{
+    badge.className = "badge badge-danger"
+  }
 
   card.appendChild(img)
   cardBody.appendChild(cardTitle)
   cardBody.appendChild(cardText)
+  cardBody.appendChild(badge)
   card.appendChild(cardBody)
 
   return card
