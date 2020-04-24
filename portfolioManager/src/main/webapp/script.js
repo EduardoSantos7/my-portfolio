@@ -86,7 +86,7 @@ function addNews(news) {
     }
     getSentiment("/sentiment" + formatParams(params)).then(sentiment => {
       console.log("card" + sentiment)
-      let card = createCard(elem.title, elem.img, elem.data, url, sentiment)
+      let card = createCard(elem.title, elem.img, elem.data, elem.url, sentiment)
       div = document.getElementById("news_div")
       div.appendChild(card)
     })
