@@ -110,6 +110,7 @@ function createCard(title, img, data, sentiment) {
   else{
     badge.className = "badge badge-danger"
   }
+  badge.innerHTML = sentiment
 
   card.appendChild(img)
   cardBody.appendChild(cardTitle)
