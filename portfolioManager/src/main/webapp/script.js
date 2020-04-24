@@ -86,7 +86,7 @@ function addNews(news) {
     }
     getSentiment("/sentiment" + formatParams(params)).then(sentiment => {
       console.log("card" + sentiment)
-      let card = createCard(elem.title, elem.img, elem.data, sentiment)
+      let card = createCard(elem.title, elem.img, elem.data, url, sentiment)
       div = document.getElementById("news_div")
       div.appendChild(card)
     })
@@ -122,7 +122,7 @@ function getCompaniesNews() {
   })
 }
 
-function createCard(title, img, data, sentiment) {
+function createCard(title, img, data, url, sentiment) {
   im = img
   card = document.createElement('div')
   card.className = "card"
@@ -134,6 +134,7 @@ function createCard(title, img, data, sentiment) {
   cardTitle = document.createElement('h5')
   cardTitle.className = "card-title"
   cardTitle.innerHTML = title
+  cardTitle.href = url
   cardText = document.createElement('div')
   cardText.className = "card-text"
   cardText.innerHTML = data
