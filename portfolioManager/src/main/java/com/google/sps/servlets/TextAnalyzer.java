@@ -34,7 +34,7 @@ public class TextAnalyzer extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // String message = request.getParameter("message");
-    String message = request.getAttribute("message");
+    String message = request.getParameter("message");
 
     Document doc = Document.newBuilder().setContent(message).setType(Document.Type.PLAIN_TEXT).build();
     LanguageServiceClient languageService = LanguageServiceClient.create();
