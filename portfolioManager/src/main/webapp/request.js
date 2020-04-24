@@ -1,4 +1,4 @@
-function getSentiment(message) {
+async function getSentiment(message) {
     const Http = new XMLHttpRequest();
     const url = '/sentiment';
     Http.open("GET", url);

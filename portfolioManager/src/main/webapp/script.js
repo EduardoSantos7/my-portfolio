@@ -81,9 +81,11 @@ function addNews(){
   // ]
 
   news.forEach(elem => {
-    let card = createCard(elem.title, elem.img, elem.data, getSentiment(""))
-    div = document.getElementById("news_div")
-    div.appendChild(card)
+    getSentiment("").then((sentiment => {
+      let card = createCard(elem.title, elem.img, elem.data, sentiment)
+      div = document.getElementById("news_div")
+      div.appendChild(card)
+    }))
   });
 }
 
