@@ -131,10 +131,11 @@ function createCard(title, img, data, url, sentiment) {
   img.src = im
   cardBody = document.createElement('div')
   cardBody.className = "card-body"
+  a = document.createElement('a')
   cardTitle = document.createElement('h5')
   cardTitle.className = "card-title"
   cardTitle.innerHTML = title
-  cardTitle.href = url
+  a.href = url
   cardText = document.createElement('div')
   cardText.className = "card-text"
   cardText.innerHTML = data
@@ -148,8 +149,9 @@ function createCard(title, img, data, url, sentiment) {
   }
   badge.innerHTML = sentiment
 
+  a.appendChild(cardTitle)
   card.appendChild(img)
-  cardBody.appendChild(cardTitle)
+  cardBody.appendChild(a)
   cardBody.appendChild(cardText)
   cardBody.appendChild(badge)
   card.appendChild(cardBody)
