@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 google.charts.load('current', { 'packages': ['corechart', 'line'] });
 google.charts.setOnLoadCallback(drawChart);
 google.charts.setOnLoadCallback(drawBackgroundColor);
@@ -75,39 +74,96 @@ function drawBackgroundColor() {
   chart.draw(data, options);
 }
 
-function addNews(){
-  news = [
-    {title: 'Hola', img: '#', datta: "let's see"},
-    { title: 'Hola', img: '#', datta: "let's see" },
-  ]
+function addNews(news) {
+  // news = [
+  //   {title: 'Hola', img: '#', data: "let's see"},
+  //   { title: 'Hola', img: '#', data: "let's see" },
+  // ]
 
   news.forEach(elem => {
-    let card = createCard(elem.title, elem.img, elem.data)
-    div = document.getElementById("news_div")
-    div.appendChild(card)
+    let params = {
+      message: elem.data
+    }
+    getSentiment("/sentiment" + formatParams(params)).then(sentiment => {
+      console.log("card" + sentiment)
+      let card = createCard(elem.title, elem.img, elem.data, elem.url, sentiment)
+      div = document.getElementById("news_div")
+      div.appendChild(card)
+    })
   });
 }
 
-function createCard(title, img, data) {
-  console.log(title + img + data)
+function getCompaniesNews() {
+  companies = ['AAPL', 'MSFT']
+  news = []
+
+  companies.forEach(company => {
+    let params = {
+      api_key: 'OmY4Y2VjYjFhMTg1ZWEzMWMwMDRlZGYzYzc1ZDdiMDRm'
+    }
+    url = 'https://api-v2.intrinio.com/companies/' + company + '/news'
+    getNews(url + formatParams(params)).then(news_list => {
+      news_list = news_list.news.slice(0, 3)
+      news_list.forEach(n => {
+        new_obj = {
+          title: n.title,
+          publication_date: n.publication_date,
+          url: n.url,
+          data: n.summary,
+          img: ''
+        }
+        news.push(new_obj)
+      })
+      return news
+    }).then(news => {
+      console.log(news)
+      addNews(news)
+    })
+  })
+}
+
+function createCard(title, img, data, url, sentiment) {
+  im = img
   card = document.createElement('div')
   card.className = "card"
   img = document.createElement('img')
   img.className = "card-img-top"
-  img.src = img
+  img.src = im
   cardBody = document.createElement('div')
   cardBody.className = "card-body"
+  a = document.createElement('a')
   cardTitle = document.createElement('h5')
   cardTitle.className = "card-title"
   cardTitle.innerHTML = title
+  a.href = url
   cardText = document.createElement('div')
   cardText.className = "card-text"
   cardText.innerHTML = data
+  badge = document.createElement('span')
 
+  if (sentiment > 0) {
+    badge.className = "badge badge-success"
+  }
+  else {
+    badge.className = "badge badge-danger"
+  }
+  badge.innerHTML = sentiment
+
+  a.appendChild(cardTitle)
   card.appendChild(img)
-  cardBody.appendChild(cardTitle)
+  cardBody.appendChild(a)
   cardBody.appendChild(cardText)
+  cardBody.appendChild(badge)
   card.appendChild(cardBody)
 
   return card
+}
+
+function formatParams(params) {
+  return "?" + Object
+    .keys(params)
+    .map(function (key) {
+      return key + "=" + encodeURIComponent(params[key])
+    })
+    .join("&")
 }
