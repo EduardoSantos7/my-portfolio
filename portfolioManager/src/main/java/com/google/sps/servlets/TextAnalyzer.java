@@ -31,19 +31,23 @@ import com.google.gson.Gson;
 @WebServlet("/sentiment")
 public class TextAnalyzer extends HttpServlet {
 
+  
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String message = request.getParameter("message");
 
-    Document doc = Document.newBuilder().setContent(message).setType(Document.Type.PLAIN_TEXT).build();
-    LanguageServiceClient languageService = LanguageServiceClient.create();
-    Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
-    float score = sentiment.getScore();
-    languageService.close();
+    try(LanguageServiceClient languageService = LanguageServiceClient.create()){
+      String message = request.getParameter("message");
 
-    response.setContentType("application/json");
-    response.setCharacterEncoding("UTF-8");
-    response.getWriter().println(convertToJson(score));
+      Document doc = Document.newBuilder().setContent(message).setType(Document.Type.PLAIN_TEXT).build();
+      Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
+      float score = sentiment.getScore();
+      languageService.close();
+
+      response.setContentType("application/json");
+      response.setCharacterEncoding("UTF-8");
+      response.getWriter().println(convertToJson(score));
+    }
   }
 
   private String convertToJson(Float comments) {
