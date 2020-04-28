@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 /**
- * Servlet that returns some example content. TODO: modify this file to handle
+ * Servlet that returns the sentiment in the text added in the parameters
  * comments data
  */
 @WebServlet("/sentiment")
@@ -33,7 +33,6 @@ public class TextAnalyzer extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // String message = request.getParameter("message");
     String message = request.getParameter("message");
 
     Document doc = Document.newBuilder().setContent(message).setType(Document.Type.PLAIN_TEXT).build();
@@ -49,7 +48,6 @@ public class TextAnalyzer extends HttpServlet {
 
   private String convertToJson(Float comments) {
     Gson gson = new Gson();
-    String json = gson.toJson(comments);
-    return json;
+    return gson.toJson(comments);
   }
 }
