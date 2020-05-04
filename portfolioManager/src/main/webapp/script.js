@@ -205,6 +205,7 @@ function removeCompany(spanValue) {
     span = spans[i]
     if (span.value === spanValue) container.removeChild(span) 
   }
+  console.log(spanValue, companies)
   var index = companies.indexOf(spanValue);
   if (index !== -1) companies.splice(index, 1);
   console.log(companies)
