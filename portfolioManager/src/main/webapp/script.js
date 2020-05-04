@@ -219,7 +219,7 @@ function addBadge(company) {
   span.className = `badge badge-${getRandomColor()}`
   span.value = company.ticket
   span.innerHTML = company.name
-  span.onclick = removeCompany(span.value)
+  span.onclick = () => removeCompany(span.value)
 
   container.appendChild(span)
 }
