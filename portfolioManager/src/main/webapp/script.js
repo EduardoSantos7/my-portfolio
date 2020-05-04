@@ -169,7 +169,20 @@ function formatParams(params) {
 }
 
 function AddCompany() {
-  company = document.getElementById("companyInput").value;
-  alert(company)
+  let company = document.getElementById("companyInput").value;
+  
+  // Validate the input
+  if( !company){
+    alert("No company provided");
+    return;
+  }
+
+  let params = {
+    api_key: 'OmY4Y2VjYjFhMTg1ZWEzMWMwMDRlZGYzYzc1ZDdiMDRm',
+    page_size: 1,
+    query: company
+  }
+  url = 'https://api-v2.intrinio.com/companies/search/'
+  getCompanyIDdata(url + formatParams(params)).then(companyIDdata => console.log(companyIDdata))
 
 }
