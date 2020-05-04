@@ -79,6 +79,7 @@ function drawBackgroundColor() {
 
 function addNews(news) {
   let div = document.getElementById("news_div");
+  div.innerHTML = ""
 
   news.forEach(elem => {
     let params = {
@@ -93,9 +94,7 @@ function addNews(news) {
 }
 
 function getCompaniesNews() {
-  let div = document.getElementById("news_div");
   let news = []
-  div.innerHTML = ""
 
   companies.forEach(company => {
     let params = {
