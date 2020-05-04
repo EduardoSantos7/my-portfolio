@@ -182,7 +182,7 @@ function AddCompany() {
     page_size: 1,
     query: company
   }
-  url = 'https://api-v2.intrinio.com/companies/search/'
+  url = 'https://api-v2.intrinio.com/companies/search'
   getCompanyIDdata(url + formatParams(params)).then(companyIDdata => console.log(companyIDdata))
 
 }
