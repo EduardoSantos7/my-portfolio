@@ -216,7 +216,7 @@ function addBadge(company) {
   let container = document.getElementById("companiesBox")
   let span = document.createElement("span")
   span.className = `badge badge-${getRandomColor()}`
-  span.value = company.ticket
+  span.value = company.ticker
   span.innerHTML = company.name
   span.onclick = () => removeCompany(span.value)
 
