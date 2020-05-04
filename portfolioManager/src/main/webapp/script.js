@@ -95,6 +95,8 @@ function addNews(news) {
 
 function getCompaniesNews() {
   let news = []
+  let div = document.getElementById("news_div");
+  div.innerHTML = ""
 
   companies.forEach(company => {
     let params = {
