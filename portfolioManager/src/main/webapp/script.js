@@ -196,3 +196,18 @@ function AddCompany() {
   })
 
 }
+
+function addBadge(company) {
+  container = document.getElementById("companiesBox")
+  span = document.createElement("span")
+  span.className = `"badge badge-${getRandomColor()}"`
+  span.value = company.ticket
+  span.innerHTML = company.name
+
+  container.appendChild(badge)
+}
+
+function getRandomColor() {
+  let colors = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark']
+  return colors[Math.floor(Math.random() * 8)]
+}
