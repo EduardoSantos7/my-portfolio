@@ -204,7 +204,7 @@ function addBadge(company) {
   span.value = company.ticket
   span.innerHTML = company.name
 
-  container.appendChild(badge)
+  container.appendChild(span)
 }
 
 function getRandomColor() {
