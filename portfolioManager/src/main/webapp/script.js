@@ -17,7 +17,7 @@ let companies = []
 
 google.charts.load('current', { 'packages': ['corechart', 'line'] });
 google.charts.setOnLoadCallback(drawChart);
-google.charts.setOnLoadCallback(drawBackgroundColor);
+google.charts.setOnLoadCallback(getMarketCapital);
 
 /** Creates a chart and adds it to the page. */
 function drawChart() {
@@ -41,25 +41,13 @@ function drawChart() {
   chart.draw(data, options);
 }
 
-function drawBackgroundColor() {
+function drawBackgroundColor(marketCapitalData) {
+  if (!marketCapitalData) return;
   var data = new google.visualization.DataTable();
   data.addColumn('number', 'X');
   data.addColumn('number', 'Portfolio');
 
-  data.addRows([
-    [0, 0], [1, 10], [2, 23], [3, 17], [4, 18], [5, 9],
-    [6, 11], [7, 27], [8, 33], [9, 40], [10, 32], [11, 35],
-    [12, 30], [13, 40], [14, 42], [15, 47], [16, 44], [17, 48],
-    [18, 52], [19, 54], [20, 42], [21, 55], [22, 56], [23, 57],
-    [24, 60], [25, 50], [26, 52], [27, 51], [28, 49], [29, 53],
-    [30, 55], [31, 60], [32, 61], [33, 59], [34, 62], [35, 65],
-    [36, 62], [37, 58], [38, 55], [39, 61], [40, 64], [41, 65],
-    [42, 63], [43, 66], [44, 67], [45, 69], [46, 69], [47, 70],
-    [48, 72], [49, 68], [50, 66], [51, 65], [52, 67], [53, 70],
-    [54, 71], [55, 72], [56, 73], [57, 75], [58, 70], [59, 68],
-    [60, 64], [61, 60], [62, 65], [63, 67], [64, 68], [65, 69],
-    [66, 70], [67, 72], [68, 75], [69, 80]
-  ]);
+  data.addRows(marketCapitalData);
 
   var options = {
     width: 440,
@@ -229,4 +217,23 @@ function addBadge(company) {
 function getRandomColor() {
   let colors = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark']
   return colors[Math.floor(Math.random() * 8)]
+}
+
+function getMarketCapital() {
+  let data = []
+  companies.forEach(company => {
+    let params = {
+      api_key: 'OmY4Y2VjYjFhMTg1ZWEzMWMwMDRlZGYzYzc1ZDdiMDRm'
+    }
+    url = 'https://api-v2.intrinio.com/companies/' + company + '/historical_data/marketcap'
+    getMarkenCapital(url + formatParams(params)).then(resut => {
+      historical_data = resut.historical_data;
+      historical_data.forEach(day_data => {
+        data.push([day_data['date'], day_data['value']])
+      })
+    });
+  }).then( () => {
+    console.log(data)
+    drawBackgroundColor(data)
+  })
 }

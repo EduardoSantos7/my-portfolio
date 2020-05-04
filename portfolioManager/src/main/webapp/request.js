@@ -10,6 +10,10 @@ var getCompanyIDdata = function (url, method) {
   return getUrl(url, "json", method);
 };
 
+var getMarkenCapital = function (url, method) {
+  return getUrl(url, "json", method);
+};
+
 var getUrl = function (url, responseType, method) {
   // Create the XHR request
   var request = new XMLHttpRequest();
