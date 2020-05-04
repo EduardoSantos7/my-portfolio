@@ -79,7 +79,6 @@ function drawBackgroundColor() {
 
 function addNews(news) {
   let div = document.getElementById("news_div");
-  div.innerHTML = ""
 
   news = news.slice(0, 2)
   news.forEach(elem => {
@@ -95,7 +94,9 @@ function addNews(news) {
 }
 
 function getCompaniesNews() {
-  news = []
+  let div = document.getElementById("news_div");
+  let news = []
+  div.innerHTML = ""
 
   companies.forEach(company => {
     let params = {
@@ -208,6 +209,7 @@ function removeCompany(spanValue) {
   companies = companies.filter(function (value) {
     return value !== spanValue;
   });
+  console.log(companies)
   getCompaniesNews();
 }
 
