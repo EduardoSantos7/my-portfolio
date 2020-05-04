@@ -83,7 +83,7 @@ function addNews(news) {
 
   news.forEach(elem => {
     let params = {
-      message: elem.data
+      message: elem.data.length < 2000 ? elem.data : elem.data.substring(0, 2000)
     }
     getSentiment("/sentiment" + formatParams(params)).then(sentiment => {
       console.log("card" + sentiment)
