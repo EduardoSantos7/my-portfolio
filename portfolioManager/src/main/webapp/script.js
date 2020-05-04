@@ -193,16 +193,30 @@ function AddCompany() {
     // Add the company ticker to the current company list
     companies.push(companyIDdata.companies[0].ticker)
     addBadge(companyIDdata.companies[0])
+    getCompaniesNews();
   })
 
 }
 
+function removeCompany(spanValue) {
+  let container = document.getElementById("companiesBox")
+  let spans = container.getElementsByTagName("span")
+  spans = spans.map(span => {
+    if (span.value === spanValue) container.removeChild(span) 
+  });
+  companies = companies.filter(function (value) {
+    return value !== spanValue;
+  });
+  getCompaniesNews();
+}
+
 function addBadge(company) {
-  container = document.getElementById("companiesBox")
-  span = document.createElement("span")
-  span.className = `"badge badge-${getRandomColor()}"`
+  let container = document.getElementById("companiesBox")
+  let span = document.createElement("span")
+  span.className = `badge badge-${getRandomColor()}`
   span.value = company.ticket
   span.innerHTML = company.name
+  span.onclick = removeCompany(span.value)
 
   container.appendChild(span)
 }
