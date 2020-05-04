@@ -201,9 +201,10 @@ function AddCompany() {
 function removeCompany(spanValue) {
   let container = document.getElementById("companiesBox")
   let spans = container.getElementsByTagName("span")
-  spans = spans.map(span => {
+  
+  for(let i = 0; i < spans.length; i++){
     if (span.value === spanValue) container.removeChild(span) 
-  });
+  }
   companies = companies.filter(function (value) {
     return value !== spanValue;
   });
