@@ -47,6 +47,7 @@ function drawBackgroundColor(marketCapitalData) {
   data.addColumn('number', 'X');
   data.addColumn('number', 'Portfolio');
 
+  console.log(marketCapitalData)
   data.addRows(marketCapitalData);
 
   var options = {
@@ -233,7 +234,6 @@ async function getMarketCapital() {
       })
     });
   })
-  console.log(data)
   drawBackgroundColor(data)
 }
 
