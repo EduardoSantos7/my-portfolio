@@ -46,7 +46,7 @@ function drawBackgroundColor(marketCapitalData) {
   var data = new google.visualization.arrayToDataTable(marketCapitalData)
 
   console.log(marketCapitalData)
-  data.addRows(marketCapitalData);
+  // data.addRows(marketCapitalData);
 
   var options = {
     width: 440,
@@ -219,7 +219,7 @@ function getRandomColor() {
 }
 
 function getMarketCapital() {
-  let data = []
+  let data = [["Date", "Market Capital Value"]]
   companies.forEach(company => {
     let params = {
       api_key: 'OmY4Y2VjYjFhMTg1ZWEzMWMwMDRlZGYzYzc1ZDdiMDRm'
