@@ -44,8 +44,8 @@ function drawChart() {
 function drawBackgroundColor(marketCapitalData) {
   if (!marketCapitalData) return;
   var data = new google.visualization.DataTable();
-  data.addColumn('number', 'X');
-  data.addColumn('number', 'Portfolio');
+  data.addColumn('string', 'Fecha');
+  data.addColumn('number', 'Market Capital');
 
   console.log(marketCapitalData)
   data.addRows(marketCapitalData);
@@ -57,7 +57,7 @@ function drawBackgroundColor(marketCapitalData) {
       title: 'Time',
     },
     vAxis: {
-      title: 'Value of Portfolio'
+      title: 'Value of Market Capital'
     },
     backgroundColor: 'white'
   };
