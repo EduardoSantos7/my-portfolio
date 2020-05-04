@@ -219,7 +219,7 @@ function getRandomColor() {
 }
 
 function getMarketCapital() {
-  let data = [["Date", "Market Value"]]
+  let data = []
   companies.forEach(company => {
     let params = {
       api_key: 'OmY4Y2VjYjFhMTg1ZWEzMWMwMDRlZGYzYzc1ZDdiMDRm'
