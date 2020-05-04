@@ -17,7 +17,7 @@ let companies = []
 
 google.charts.load('current', { 'packages': ['corechart', 'line'] });
 google.charts.setOnLoadCallback(drawChart);
-google.charts.setOnLoadCallback(getMarketCapital);
+google.charts.setOnLoadCallback(drawBackgroundColor);
 
 /** Creates a chart and adds it to the page. */
 function drawChart() {
@@ -182,7 +182,7 @@ function AddCompany() {
     // Add the company ticker to the current company list
     companies.push(companyIDdata.companies[0].ticker)
     addBadge(companyIDdata.companies[0])
-    getCompaniesNews();
+    refresh();
   })
 
 }
@@ -200,7 +200,7 @@ function removeCompany(spanValue) {
   var index = companies.indexOf(spanValue);
   if (index !== -1) companies.splice(index, 1);
   console.log(companies)
-  getCompaniesNews();
+  refresh();
 }
 
 function addBadge(company) {
@@ -236,4 +236,9 @@ function getMarketCapital() {
     console.log(data)
     drawBackgroundColor(data)
   })
+}
+
+function refresh() {
+  getMarketCapital();
+  getCompaniesNews();
 }
