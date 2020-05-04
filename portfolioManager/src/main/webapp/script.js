@@ -220,21 +220,22 @@ function getRandomColor() {
   return colors[Math.floor(Math.random() * 8)]
 }
 
-async function getMarketCapital() {
+function getMarketCapital() {
   let data = []
-  companies.forEach(async company => {
+  companies.forEach(company => {
     let params = {
       api_key: 'OmY4Y2VjYjFhMTg1ZWEzMWMwMDRlZGYzYzc1ZDdiMDRm'
     }
     url = 'https://api-v2.intrinio.com/companies/' + company + '/historical_data/marketcap'
-    await getMarkenCapital(url + formatParams(params)).then(resut => {
+    getMarkenCapital(url + formatParams(params)).then(resut => {
       historical_data = resut.historical_data;
       historical_data.forEach(day_data => {
         data.push([day_data['date'], day_data['value']])
       })
-    });
+    }).then(company_data => {
+      drawBackgroundColor(company_data)
+    })
   })
-  drawBackgroundColor(data)
 }
 
 function refresh() {
