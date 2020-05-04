@@ -94,14 +94,14 @@ function addNews(news) {
 }
 
 function getCompaniesNews() {
-  let news = []
   let div = document.getElementById("news_div");
   div.innerHTML = ""
-
+  
   companies.forEach(company => {
     let params = {
       api_key: 'OmY4Y2VjYjFhMTg1ZWEzMWMwMDRlZGYzYzc1ZDdiMDRm'
     }
+    let news = []
     url = 'https://api-v2.intrinio.com/companies/' + company + '/news'
     getNews(url + formatParams(params)).then(news_list => {
       news_list = news_list.news.slice(0, 2)
@@ -113,6 +113,7 @@ function getCompaniesNews() {
           data: n.summary,
           img: ''
         }
+        console.log("agregue")
         news.push(new_obj)
       })
       return news
