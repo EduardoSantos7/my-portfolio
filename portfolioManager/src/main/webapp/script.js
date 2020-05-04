@@ -167,3 +167,9 @@ function formatParams(params) {
     })
     .join("&")
 }
+
+function AddCompany() {
+  company = document.getElementById("companyInput").value;
+  alert(company)
+
+}
