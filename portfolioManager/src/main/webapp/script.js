@@ -78,10 +78,9 @@ function drawBackgroundColor() {
 }
 
 function addNews(news) {
-  // news = [
-  //   {title: 'Hola', img: '#', data: "let's see"},
-  //   { title: 'Hola', img: '#', data: "let's see" },
-  // ]
+  let div = document.getElementById("news_div");
+  div.innerHTML = ""
+
   news = news.slice(0, 2)
   news.forEach(elem => {
     let params = {
@@ -90,7 +89,6 @@ function addNews(news) {
     getSentiment("/sentiment" + formatParams(params)).then(sentiment => {
       console.log("card" + sentiment)
       let card = createCard(elem.title, elem.img, elem.data, elem.url, sentiment)
-      div = document.getElementById("news_div")
       div.appendChild(card)
     })
   });
