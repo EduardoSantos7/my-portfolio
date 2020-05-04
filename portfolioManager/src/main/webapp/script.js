@@ -232,6 +232,7 @@ function getMarketCapital() {
         data.push([day_data['date'], day_data['value']])
       })
     });
+    return data;
   }).then( () => {
     console.log(data)
     drawBackgroundColor(data)
@@ -239,6 +240,6 @@ function getMarketCapital() {
 }
 
 function refresh() {
-  getMarketCapital();
   getCompaniesNews();
+  getMarketCapital();
 }
