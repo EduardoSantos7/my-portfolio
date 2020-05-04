@@ -82,7 +82,7 @@ function addNews(news) {
   //   {title: 'Hola', img: '#', data: "let's see"},
   //   { title: 'Hola', img: '#', data: "let's see" },
   // ]
-
+  news = news.slice(0, 2)
   news.forEach(elem => {
     let params = {
       message: elem.data
