@@ -17,7 +17,7 @@ let companies = []
 
 google.charts.load('current', { 'packages': ['corechart', 'line'] });
 google.charts.setOnLoadCallback(drawChart);
-google.charts.setOnLoadCallback(drawBackgroundColor);
+//google.charts.setOnLoadCallback(drawBackgroundColor);
 
 /** Creates a chart and adds it to the page. */
 function drawChart() {
@@ -43,9 +43,7 @@ function drawChart() {
 
 function drawBackgroundColor(marketCapitalData) {
   if (!marketCapitalData) return;
-  var data = new google.visualization.DataTable();
-  data.addColumn('string', 'Fecha');
-  data.addColumn('number', 'Market Capital');
+  var data = new google.visualization.arrayToDataTable(marketCapitalData)
 
   console.log(marketCapitalData)
   data.addRows(marketCapitalData);
@@ -221,7 +219,7 @@ function getRandomColor() {
 }
 
 function getMarketCapital() {
-  let data = []
+  let data = [["Date", "Market Value"]]
   companies.forEach(company => {
     let params = {
       api_key: 'OmY4Y2VjYjFhMTg1ZWEzMWMwMDRlZGYzYzc1ZDdiMDRm'
