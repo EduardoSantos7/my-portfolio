@@ -231,6 +231,7 @@ function getMarketCapital() {
         data.push([day_data['date'], day_data['value']])
       })
     }).then(company_data => {
+      console.log(company_data)
       drawBackgroundColor(company_data)
     })
   })
