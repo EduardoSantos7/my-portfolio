@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// This list contains the companies that will be ask use to ask for news, prices, etc.
+let companies = []
+
 google.charts.load('current', { 'packages': ['corechart', 'line'] });
 google.charts.setOnLoadCallback(drawChart);
 google.charts.setOnLoadCallback(drawBackgroundColor);
@@ -94,7 +97,6 @@ function addNews(news) {
 }
 
 function getCompaniesNews() {
-  companies = ['AAPL', 'MSFT']
   news = []
 
   companies.forEach(company => {
@@ -183,6 +185,14 @@ function AddCompany() {
     query: company
   }
   url = 'https://api-v2.intrinio.com/companies/search'
-  getCompanyIDdata(url + formatParams(params)).then(companyIDdata => console.log(companyIDdata))
+  getCompanyIDdata(url + formatParams(params)).then(companyIDdata => {
+    if (companyIDdata.companies.length == 0) {
+      alert(`${company} was not found.`);
+      return;
+    }
+    // Add the company ticker to the current company list
+    companies.push(companyIDdata.companies[0].ticker)
+    addBadge(companyIDdata.companies[0])
+  })
 
 }
