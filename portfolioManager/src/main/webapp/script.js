@@ -80,7 +80,6 @@ function drawBackgroundColor() {
 function addNews(news) {
   let div = document.getElementById("news_div");
 
-  news = news.slice(0, 2)
   news.forEach(elem => {
     let params = {
       message: elem.data
@@ -104,7 +103,7 @@ function getCompaniesNews() {
     }
     url = 'https://api-v2.intrinio.com/companies/' + company + '/news'
     getNews(url + formatParams(params)).then(news_list => {
-      news_list = news_list.news.slice(0, 3)
+      news_list = news_list.news.slice(0, 2)
       news_list.forEach(n => {
         new_obj = {
           title: n.title,
@@ -119,6 +118,7 @@ function getCompaniesNews() {
     }).then(news => {
       console.log(news)
       addNews(news)
+      news = []
     })
   })
 }
